@@ -8,6 +8,7 @@ from utils.datasets import *
 import os
 import sys
 import argparse
+import platform
 
 from PIL import Image
 
@@ -109,7 +110,7 @@ if __name__ == "__main__":
                 plt.text(
                     x1,
                     y1,
-                    s=classes[int(cls_score)],
+                    s=classes[int(cls_label)],
                     color="white",
                     verticalalignment = "top",
                     bbox={"color": color, "pad": 0},
@@ -119,8 +120,12 @@ if __name__ == "__main__":
         plt.axis("off")
         plt.gca().xaxis.set_major_locator(NullLocator())
         plt.gca().yaxis.set_major_locator(NullLocator())
-        filename = path.split("/")[-1].split(".")[0]
-        plt.savefig(f"output/{filename}.png", bbox_inches="tight", pad_inches=0.0)
+        filename = "filename"
+        if platform.system() == 'Windows':
+            filename = path.split("\\")[-1].split(".")[0]
+        else:
+            filename = path.split("/")[-1].split(".")[0]
+        plt.savefig("output/{}.png".format(filename), bbox_inches="tight", pad_inches=0.0)
         #plt.show()
         plt.close()        
 
